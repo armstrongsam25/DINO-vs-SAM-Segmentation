@@ -80,6 +80,9 @@ def calculate_iou(preds, target, threshold=0.5):
 	# Apply sigmoid to get probabilities, then threshold to binary (0 or 1)
 	preds = (torch.sigmoid(preds) > threshold).float()  # Convert to binary (0 or 1)
 
+	# Ensure preds and target are of the same shape
+	assert preds.shape == target.shape, f"Shape mismatch: {preds.shape} vs {target.shape}"
+
 	# Flatten the predictions and target for IoU calculation
 	preds = preds.view(-1).cpu().numpy()  # Flatten and move to CPU
 	target = target.view(-1).cpu().numpy()  # Flatten and move to CPU
@@ -90,7 +93,6 @@ def calculate_iou(preds, target, threshold=0.5):
 
 	# Compute IoU using Jaccard index (sklearn)
 	return jaccard_score(target, preds)
-
 
 if __name__ == '__main__':
 	# Initialize SAM model
@@ -140,7 +142,7 @@ if __name__ == '__main__':
 	scheduler = ReduceLROnPlateau(optimizer, 'min', patience=5, factor=0.1, verbose=True)
 
 	# Set number of epochs
-	num_epochs = 30
+	num_epochs = 100
 	patience = 5  # Early stopping patience
 	best_val_loss = float('inf')
 	epochs_without_improvement = 0
@@ -154,7 +156,7 @@ if __name__ == '__main__':
 			images, masks = data
 			images, masks = images.cuda(), masks.cuda()
 
-			# Downsample masks to match model output size (32x32)
+			# Downsample masks to match model output size (64x64)
 			target = torch.nn.functional.interpolate(masks, size=(64, 64), mode='bilinear', align_corners=False)
 
 			# Extract features using SAM's image encoder
@@ -182,8 +184,8 @@ if __name__ == '__main__':
 				images, masks = data
 				images, masks = images.cuda(), masks.cuda()
 
-				# Downsample masks to 32x32
-				target = torch.nn.functional.interpolate(masks, size=(32, 32), mode='bilinear', align_corners=False)
+				# Downsample masks to 64x64
+				target = torch.nn.functional.interpolate(masks, size=(64, 64), mode='bilinear', align_corners=False)
 
 				# Extract features and compute predictions
 				features = feature_extractor(images)
