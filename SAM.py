@@ -108,10 +108,10 @@ if __name__ == '__main__':
 	lossfn = torch.nn.BCEWithLogitsLoss()
 
 	# Directories for images and masks
-	train_image_dir = r"C:\Users\Sam\Desktop\DINO\data\images\train"
-	train_mask_dir = r"C:\Users\Sam\Desktop\DINO\data\masks\train"
-	val_image_dir = r"C:\Users\Sam\Desktop\DINO\data\images\val"
-	val_mask_dir = r"C:\Users\Sam\Desktop\DINO\data\masks\val"
+	train_image_dir = "./data/images/train"
+	train_mask_dir = "./data/masks/train"
+	val_image_dir = "./data/images/val"
+	val_mask_dir = "./data/masks/val"
 
 	# Define transformations for images and masks
 	image_transform = transforms.Compose([

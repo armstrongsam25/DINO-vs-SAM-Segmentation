@@ -91,10 +91,10 @@ if __name__ == '__main__':
 
 	# Directories for images and masks
 	# Directories for training and validation data
-	train_image_dir = r"C:\Users\Sam\Desktop\DINO\data\images\train"
-	train_mask_dir = r"C:\Users\Sam\Desktop\DINO\data\masks\train"
-	val_image_dir = r"C:\Users\Sam\Desktop\DINO\data\images\val"
-	val_mask_dir = r"C:\Users\Sam\Desktop\DINO\data\masks\val"
+	train_image_dir = "./data/images/train"
+	train_mask_dir = "./data/masks/train"
+	val_image_dir = "./data/images/val"
+	val_mask_dir = "./data/masks/val"
 
 	# Define transformations for images and masks
 	image_transform = transforms.Compose([
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 	scheduler = ReduceLROnPlateau(optimizer, 'min', patience=5, factor=0.1, verbose=True)
 
 	# Set number of epochs
-	num_epochs = 30
+	num_epochs = 100
 	patience = 5  # Early stopping patience (stop if no improvement for 'patience' epochs)
 	best_val_loss = float('inf')
 	epochs_without_improvement = 0
