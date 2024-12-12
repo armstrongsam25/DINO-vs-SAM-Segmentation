@@ -1,0 +1,6 @@
+#install torch and torchvision
+
+Pillow
+scikit-learn
+numpy
+git+https://github.com/facebookresearch/segment-anything.git
