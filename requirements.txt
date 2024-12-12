@@ -1,4 +1,4 @@
-#install torch and torchvision
+#install torch and torchvision from here https://pytorch.org/get-started/locally/
 
 Pillow
 scikit-learn
